@@ -10,10 +10,10 @@ namespace MyEcommerce.Controllers
         [HttpGet]
         public HttpResponseMessage Autenticar(string email, string senha)
         {
-            var savedCliente = new ClienteRepository().BuscarPorEmailEhSenha(email, senha);
-            var response = savedCliente == null 
-                ? Request.CreateResponse(HttpStatusCode.Forbidden, "Cliente não encontrado") 
-                :  Request.CreateResponse(HttpStatusCode.OK, savedCliente);
+            var savedCpf = new ClienteRepository().BuscarPorEmailEhSenha(email, senha);
+            var response = savedCpf == null
+                ? Request.CreateResponse(HttpStatusCode.Forbidden)
+                : Request.CreateResponse(HttpStatusCode.OK, savedCpf);
 
             response.Headers.Add("Access-Control-Allow-Origin", "*");
             return response;

@@ -11,7 +11,7 @@ using System.Web.Http.Cors;
 namespace MyEcommerce.Controllers
 {
     [EnableCors(origins: "http://localhost:8100", headers: "*", methods: "*")]
-    public class ClienteController : ApiController
+    public class ClientesController : ApiController
     {
         private static readonly Dictionary<string, string> ERROR_MSGS = new Dictionary<string, string>
         {
@@ -23,14 +23,35 @@ namespace MyEcommerce.Controllers
             {"ERRO_BUSCAR_CLIENTE", "Erro {0} ao buscar cliente com CPF {1}" }
         };
 
+        [Route("api/Clientes/{cpfCliente}")]
         [HttpGet]
-        public HttpResponseMessage VisualizarCadastro(string cpfCliente)
+        public HttpResponseMessage GetCliente(string cpfCliente)
         {
-            return GetCliente(cpfCliente);
+            string msgError = null;
+            Cliente savedCliente = null;
+            try
+            {
+                savedCliente = new ClienteRepository().BuscarPorCpf(cpfCliente);
+
+                if (savedCliente == null)
+                    msgError = string.Format(ERROR_MSGS["CLIENTE_CPF_NAO_ECONTRADO"], cpfCliente);
+
+            }
+            catch (Exception ex)
+            {
+                msgError = string.Format(ERROR_MSGS["ERRO_BUSCAR_CLIENTE"], ex.ToString(), cpfCliente);
+            }
+
+            var response = msgError == null
+                ? Request.CreateResponse(HttpStatusCode.OK, savedCliente)
+                : Request.CreateResponse(HttpStatusCode.NotFound, msgError);
+
+            response.Headers.Add("Access-Control-Allow-Origin", "*");
+
+            return response;
         }
 
-        [HttpPost]
-        public HttpResponseMessage CriarCadastro([FromBody] Cliente cliente)
+        public HttpResponseMessage PostCliente([FromBody] Cliente cliente)
         {
             try
             {
@@ -46,7 +67,7 @@ namespace MyEcommerce.Controllers
                 if (clienteRepository.EmailJaCadastrado(cliente.Email))
                     return Request.CreateResponse(HttpStatusCode.BadRequest, ERROR_MSGS["EMAIL_CADASTRADO"]);
 
-               
+
                 clienteRepository.Create(cliente);
 
                 return Request.CreateResponse(HttpStatusCode.OK, cliente);
@@ -58,19 +79,14 @@ namespace MyEcommerce.Controllers
 
         }
 
-        [HttpGet]
-        public HttpResponseMessage IniciarAtualizacao(string cpfCliente)
-        {
-            return GetCliente(cpfCliente);
-        }
-
+        [Route("api/Clientes/{cpfCliente}")]
         [HttpPut]
-        public HttpResponseMessage AtualizarCadastro(Cliente cliente)
+        public HttpResponseMessage PutCliente(string cpfCliente, Cliente cliente)
         {
             try
             {
                 var clienteRepository = new ClienteRepository();
-                var savedCliente = clienteRepository.BuscarPorCpf(cliente.Cpf);
+                var savedCliente = clienteRepository.BuscarPorCpf(cpfCliente);
                 if (savedCliente == null)
                     return Request.CreateResponse(HttpStatusCode.NotFound, string.Format(ERROR_MSGS["CLIENTE_CPF_NAO_ECONTRADO"], cliente.Cpf));
 
@@ -84,7 +100,7 @@ namespace MyEcommerce.Controllers
                 savedCliente.AtualizarCadastro(cliente);
                 clienteRepository.SaveChanges();
 
-                return Request.CreateResponse(HttpStatusCode.OK);
+                return Request.CreateResponse(HttpStatusCode.OK, savedCliente);
             }
             catch (Exception ex)
             {
@@ -92,8 +108,9 @@ namespace MyEcommerce.Controllers
             }
         }
 
+        [Route("api/Clientes/{cpfCliente}")]
         [HttpDelete]
-        public HttpResponseMessage ExcluirCadastro(string cpfCliente)
+        public HttpResponseMessage DeleteCliente(string cpfCliente)
         {
             string msgError = "";
             try
@@ -115,28 +132,5 @@ namespace MyEcommerce.Controllers
             var error = new HttpError(msgError);
             return Request.CreateResponse(HttpStatusCode.NotFound, error);
         }
-
-        private HttpResponseMessage GetCliente(string cpfCliente)
-        {
-            string msgError = "";
-            try
-            {
-                var savedCliente = new ClienteRepository().BuscarPorCpf(cpfCliente);
-
-                if (savedCliente != null)
-                    return Request.CreateResponse(HttpStatusCode.OK, savedCliente);
-
-                msgError = string.Format(ERROR_MSGS["CLIENTE_CPF_NAO_ECONTRADO"], cpfCliente);
-            }
-            catch (Exception ex)
-            {
-                msgError = string.Format(ERROR_MSGS["ERRO_BUSCAR_CLIENTE"], ex.ToString(), cpfCliente);
-
-            }
-
-            var error = new HttpError(msgError);
-            return Request.CreateResponse(HttpStatusCode.NotFound, error);
-        }
-
     }
 }

@@ -14,9 +14,10 @@ namespace MyEcommerce.Models.Repositories
             return this.MyContext.Set<Cliente>().SingleOrDefault(q => q.Cpf == cpf);
         }
 
-        public Cliente BuscarPorEmailEhSenha(string email, string senha)
+        public string BuscarPorEmailEhSenha(string email, string senha)
         {
-            return MyContext.Set<Cliente>().SingleOrDefault(q => q.Email == email && q.Senha == senha);
+            var cliente = MyContext.Set<Cliente>().SingleOrDefault(q => q.Email == email && q.Senha == senha);
+            return cliente == null ? null : cliente.Cpf;
         }
 
         public override void Create(Cliente cliente)

@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Business\ClienteBusiness.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -111,6 +112,7 @@
     </Compile>
     <Compile Include="Helpers\CpfHelper.cs" />
     <Compile Include="Helpers\EmailHelper.cs" />
+    <Compile Include="Helpers\ErrorMsgs.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\DataContext.cs" />
     <Compile Include="Models\Interfaces\IEntity.cs" />

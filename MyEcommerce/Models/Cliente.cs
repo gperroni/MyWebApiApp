@@ -26,7 +26,7 @@ namespace MyEcommerce.Models
                 return "Preencha todos os dados da tela";
 
             if (!EmailHelper.ValidaEmail(Email))
-                return "E-mail em formato inválido";
+                return "E-mail inválido";
 
             if (!CpfHelper.ValidaCpf(Cpf))
                 return "CPF inválido";

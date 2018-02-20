@@ -22,7 +22,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/29/2015 23:37:41</publishTime>
     </File>
     <File Include="bin/MyEcommerce.dll">
-      <publishTime>02/17/2018 01:31:37</publishTime>
+      <publishTime>02/20/2018 01:16:17</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>10/29/2015 23:37:28</publishTime>

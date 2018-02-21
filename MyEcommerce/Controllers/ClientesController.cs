@@ -1,7 +1,6 @@
-﻿using MyEcommerce.Business;
-using MyEcommerce.Helpers;
-using MyEcommerce.Models;
-using MyEcommerce.Models.Repositories;
+﻿using Business;
+using Model;
+using Model.Helpers;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -21,7 +20,7 @@ namespace MyEcommerce.Controllers
             Cliente savedCliente = null;
             try
             {
-                savedCliente = new ClienteRepository().BuscarPorCpf(cpfCliente);
+                savedCliente = new ClienteBusiness().BuscarPorCpf(cpfCliente);
 
                 if (savedCliente == null)
                     msgError = ErrorMsgs.Get("CLIENTE_CPF_NAO_ECONTRADO", cpfCliente);
@@ -45,7 +44,7 @@ namespace MyEcommerce.Controllers
             try
             {
                 var clienteBusiness = new ClienteBusiness();
-                var errorMsg = clienteBusiness.SalvarCliente(cliente);
+                var errorMsg = clienteBusiness.CadastrarCliente(cliente);
 
                 return errorMsg == null
                     ? Request.CreateResponse(HttpStatusCode.OK, cliente)

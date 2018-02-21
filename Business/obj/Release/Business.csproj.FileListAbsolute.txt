@@ -1,0 +1,11 @@
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\Business\bin\Release\Business.dll
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\Business\bin\Release\Business.pdb
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\Business\bin\Release\Model.dll
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\Business\bin\Release\Repository.dll
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\Business\bin\Release\EntityFramework.dll
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\Business\bin\Release\Model.pdb
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\Business\bin\Release\Repository.pdb
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\Business\bin\Release\EntityFramework.xml
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\Business\obj\Release\Business.csprojResolveAssemblyReference.cache
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\Business\obj\Release\Business.dll
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\Business\obj\Release\Business.pdb

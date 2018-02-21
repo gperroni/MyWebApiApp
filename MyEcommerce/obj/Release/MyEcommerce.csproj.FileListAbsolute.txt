@@ -33,3 +33,9 @@ C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\MyeCommerce\obj
 C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\MyeCommerce\bin\System.Web.Cors.dll
 C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\MyeCommerce\bin\System.Web.Http.Cors.dll
 C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\MyeCommerce\bin\System.Web.Http.Cors.xml
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\MyeCommerce\bin\Business.dll
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\MyeCommerce\bin\Model.dll
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\MyeCommerce\bin\Repository.dll
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\MyeCommerce\bin\Business.pdb
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\MyeCommerce\bin\Model.pdb
+C:\Users\gperr\Documents\Visual Studio 2015\Projects\MyEcommerce\MyeCommerce\bin\Repository.pdb

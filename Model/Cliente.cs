@@ -25,11 +25,11 @@ namespace Model
             if (dadoInvalido)
                 return "Preencha todos os dados da tela";
 
-            if (!EmailHelper.ValidaEmail(Email))
-                return "E-mail inválido";
-
             if (!CpfHelper.ValidaCpf(Cpf))
                 return "CPF inválido";
+
+            if (!EmailHelper.ValidaEmail(Email))
+                return "E-mail inválido";
 
             return string.Empty;
         }

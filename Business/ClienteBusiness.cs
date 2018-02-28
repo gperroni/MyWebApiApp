@@ -24,7 +24,7 @@ namespace Business
             if (!string.Empty.Equals(errorValidacaoDados))
                 return errorValidacaoDados;
 
-            if (clienteRepository.CpfJaCadastrado(cliente.Cpf) || clienteRepository.CpfJaCadastrado(cliente.Cpf))
+            if (clienteRepository.CpfJaCadastrado(cliente.Cpf) || clienteRepository.EmailJaCadastrado(cliente.Email))
                 return ErrorMsgs.Get("CLIENTE_CADASTRADO");
 
             clienteRepository.Create(cliente);

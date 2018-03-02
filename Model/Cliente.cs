@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace Model
 {
+    /// <summary>
+    /// Classe representando a entidade CLIENTE, que será persistida na tabela CLIENTE do banco de dados
+    /// </summary>
     [Table("Cliente")]
     public class Cliente : IEntity
     {
@@ -19,23 +22,33 @@ namespace Model
         public string Email { get; set; }
         public string Senha { get; set; }
 
+
+        /// <summary>
+        /// Verifica se os dados são válidos e retorna mensagem de erro caso encontre algum erro ou nulo caso não encontre
+        /// </summary>
+        /// <returns>Mensagem de erro caso dado inválido ou vazio caso tudo válido</returns>
         public string ValidarDados()
         {
+            // Via reflection, valida se todas as propriedades possuem valor
             var dadoInvalido = GetType().GetProperties().Any(p => p.GetValue(this).ToString().Trim() == "");
             if (dadoInvalido)
-                return "Preencha todos os dados da tela";
+                return ErrorMsgs.Get("CAMPOS_VAZIOS");
 
+            // Verifica se CPF é válido
             if (!CpfHelper.ValidaCpf(Cpf))
-                return "CPF inválido";
+                return ErrorMsgs.Get("CPF_INVALIDO");
 
+            // Verifica se E-mail é válido
             if (!EmailHelper.ValidaEmail(Email))
-                return "E-mail inválido";
+                return ErrorMsgs.Get("EMAIL_INVALIDO");
 
+            // Retorna vazio caso não tenha encontrado nenhum erro
             return string.Empty;
         }
 
         public void AtualizarDados(Cliente newCliente)
         {
+            // Atualiza os valores das propriedades da classe, via Reflection
             var currentPropeties = GetType().GetProperties();
             foreach (var property in currentPropeties.Where(q => q.Name != "Cpf"))
             {

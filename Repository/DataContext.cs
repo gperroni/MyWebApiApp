@@ -1,12 +1,12 @@
 ﻿using Model;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace Repository
 {
+    /// <summary>
+    /// Classe de "contexto", representando um banco de dados
+    /// Se comportará como uma abstração do mesmo, contendo propriedades representando TABELAS
+    /// </summary>
     public partial class DataContext : DbContext
     {
 
@@ -16,6 +16,7 @@ namespace Repository
             Database.SetInitializer<DataContext>(null);
         }
 
+        // Representa a tablea CLIENTES
         public DbSet<Cliente> Clientes { get; set; }
 
     }

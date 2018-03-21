@@ -43,7 +43,7 @@ namespace Model
                 return ErrorMsgs.Get("EMAIL_INVALIDO");
 
             // Retorna vazio caso não tenha encontrado nenhum erro
-            return string.Empty;
+            return null;
         }
 
         public void AtualizarDados(Cliente newCliente)

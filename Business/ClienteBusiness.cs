@@ -10,6 +10,12 @@ namespace Business
     /// </summary>
     public class ClienteBusiness
     {
+        private ClienteRepository ClienteRepository { get; set; }
+
+        public ClienteBusiness()
+        {
+            ClienteRepository = new ClienteRepository();
+        }
         
         /// <summary>
         /// Buscar cliente por CPF
@@ -18,7 +24,7 @@ namespace Business
         /// <returns>Retorna o cliente caso encontrado. Senão, retorna nulo</returns>
         public Cliente BuscarPorCpf(string cpfCliente)
         {
-            return new ClienteRepository().BuscarPorCpf(cpfCliente);
+            return ClienteRepository.BuscarPorCpf(cpfCliente);
         }
         
         /// <summary>
@@ -29,7 +35,7 @@ namespace Business
         /// <returns>Retorna o CPF encontrado</returns>
         public string BuscarCpfPorEmailEhSenha(string email, string senha)
         {
-            return new ClienteRepository().BuscarCpfPorEmailEhSenha(email, senha);
+            return ClienteRepository.BuscarCpfPorEmailEhSenha(email, senha);
         }
 
 
@@ -40,19 +46,17 @@ namespace Business
         /// <returns>Retorna se houve erro em algum dos dados do cliente ou nulo caso não tenha erros</returns>
         public string CadastrarCliente(Cliente cliente)
         {
-            var clienteRepository = new ClienteRepository();
-
             // Valida os dados do cliente e retorna a mensagem de erro, caso exista, para apresentar via retorno da API
             var errorValidacaoDados = cliente.ValidarDados();
-            if (!string.Empty.Equals(errorValidacaoDados))
+            if (errorValidacaoDados != null)
                 return errorValidacaoDados;
 
             // Verificar se CPF ou e-mail digitados já foram utilizados. Se sim, retorna a mensagem de erro para apresentar via retorno da API
-            if (clienteRepository.CpfJaCadastrado(cliente.Cpf) || clienteRepository.EmailJaCadastrado(cliente.Email))
+            if (ClienteRepository.CpfJaCadastrado(cliente.Cpf) || ClienteRepository.EmailJaCadastrado(cliente.Email))
                 return ErrorMsgs.Get("CLIENTE_CADASTRADO");
 
             // Cria o cliente e não retorna mensagem de erro
-            clienteRepository.Create(cliente);
+            ClienteRepository.Create(cliente);
             return null;
         }
 
@@ -64,25 +68,23 @@ namespace Business
         /// <returns>Retorna se houve erro em algum dos dados do cliente ou nulo caso não tenha erros</returns>
         public string AtualizarCliente(Cliente newCliente)
         {
-            var clienteRepository = new ClienteRepository();
-
             // Buscar o cliente que será atualizado. Retorna mensagem de erro, caso cliente não seja encontrado, para apresentar via retorno de API
-            var savedCliente = clienteRepository.BuscarPorCpf(newCliente.Cpf);
+            var savedCliente = ClienteRepository.BuscarPorCpf(newCliente.Cpf);
             if (savedCliente == null)
                 return ErrorMsgs.Get("CLIENTE_CPF_NAO_ECONTRADO", newCliente.Cpf);
 
             // Valida os dados do cliente e retorna a mensagem de erro, caso exista, para apresentar via retorno da API
             var errorValidacaoDados = newCliente.ValidarDados();
-            if (!string.Empty.Equals(errorValidacaoDados))
+            if (errorValidacaoDados != null)
                 return errorValidacaoDados;
 
             // Caso o e-mail tenha sido alterado, verifica se o novo digitado já é utilizado por outro usuário. Retorna mensagem de erro caso já exista um cadastro
-            if (newCliente.Email != savedCliente.Email && clienteRepository.EmailJaCadastrado(newCliente.Email))
+            if (newCliente.Email != savedCliente.Email && ClienteRepository.EmailJaCadastrado(newCliente.Email))
                 return ErrorMsgs.Get("EMAIL_CADASTRADO");
 
             // Atualiza a instância de cliente buscada no banco e a persiste no banco de dados. Retorna nulo como mensagem de erro
             savedCliente.AtualizarDados(newCliente);
-            clienteRepository.SaveChanges();
+            ClienteRepository.SaveChanges();
             return null;
         }
 
@@ -94,15 +96,13 @@ namespace Business
         /// <returns>Retorna se houve erro durante a exclusão ou nulo caso não tenha havido problemas</returns>
         public string ExcluirCliente(string cpfCliente)
         {
-            var clienteRepository = new ClienteRepository();
-
             // Busca o cliente para ser excluído e retorna mensagem de erro, para retornar pela API, caso não tenha encontrado
-            var savedCliente = clienteRepository.BuscarPorCpf(cpfCliente);
+            var savedCliente = ClienteRepository.BuscarPorCpf(cpfCliente);
             if (savedCliente == null)
                 return ErrorMsgs.Get("CLIENTE_CPF_NAO_ECONTRADO", cpfCliente);
 
             // Exclui o cliente encontrado anteriormente e retorna nulo como mensagem de erro
-            clienteRepository.Delete(savedCliente);
+            ClienteRepository.Delete(savedCliente);
             return null;
         }
 

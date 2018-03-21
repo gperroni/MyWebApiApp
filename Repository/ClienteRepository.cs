@@ -7,6 +7,9 @@ using System.Web;
 
 namespace Repository
 {
+    /// <summary>
+    /// Implementação de BaseRepository, representando um repositório de CLIENTE
+    /// </summary>
     public class ClienteRepository : BaseRepository<Cliente>
     {
 

@@ -26,7 +26,6 @@ namespace MyEcommerce.Controllers
                 ? Request.CreateResponse(HttpStatusCode.Forbidden)
                 : Request.CreateResponse(HttpStatusCode.OK, savedCpf);
 
-            response.Headers.Add("Access-Control-Allow-Origin", "*");
             return response;
         }
     }

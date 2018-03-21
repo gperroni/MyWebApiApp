@@ -13,7 +13,6 @@ namespace MyEcommerce.Controllers
     /// <summary>
     /// Classe controladora para Buscar, Criar, Atualizar e Excluir cliente
     /// </summary>
-    [EnableCors(origins: "http://localhost:8100", headers: "*", methods: "*")]
     public class ClientesController : ApiController
     {
 
